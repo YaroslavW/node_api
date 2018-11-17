@@ -37,6 +37,21 @@ app.post('/pets', (req, res) => {
 	}
 	pets.push(pet);
 	res.send(pet);
+});
+
+app.put('/pets/:id' , (req, res) =>{
+		var pet = pets.find(pet =>{
+		return pet.id === Number(req.params.id);
+	});
+		pet.name = req.body.name;
+		res.sendStatus(200);
+});
+
+app.delete('/pets/:id', (req, res) =>{
+	pets = pets.filter( pet =>{
+		return pet.id !== Number(req.params.id);
+	});
+	res.sendStatus(200);
 })
 
 app.listen(3000, () => console.log("Server running on 3000 port"));
