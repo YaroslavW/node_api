@@ -1,5 +1,8 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var pets = [
 	{
@@ -25,5 +28,15 @@ app.get('/pets/:id', (req, res) => {
 	});
 	res.send(pet)
 });
+
+app.post('/pets', (req, res) => { 
+	// console.log(req.body);
+	var pet = {
+		id: Date.now(),
+		name: req.body.name
+	}
+	pets.push(pet);
+	res.send(pet);
+})
 
 app.listen(3000, () => console.log("Server running on 3000 port"));
